@@ -1,0 +1,20 @@
+{
+  "logger": {
+    "logLevel": "debug",
+    "prettyLog": true,
+    "enableFile": false
+  },
+  "app": {
+    "port": ":9290"
+  },
+  "storage": {
+    "host": "127.0.0.1:3306",
+    "database": "fxdemo",
+    "user": "root",
+    "password": "fxdemo",
+    "maxOpenConnections": 15,
+    "maxIdleConnections": 10,
+    "maxConnectionIdleTime": "1h",
+    "maxConnectionLifetime": "24h"
+  }
+}
