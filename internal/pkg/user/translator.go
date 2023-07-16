@@ -15,16 +15,18 @@ func ToAPI(user user.User) api.CreateUserResponse {
 
 func toApiError(customError errors.Error) api.Error {
 	return api.Error{
-		StatusCode:   translateErrorCode(customError.Type()),
-		ReasonPhrase: string(customError.Type()),
+		StatusCode:   string(customError.Type()),
+		ReasonPhrase: string(customError.Causes()[0].Code),
 		Errors:       customError.Error(),
 	}
 }
 
-func translateErrorCode(code errors.ErrorType) int {
-	switch code {
+func translateErrorCode(code errors.Error) int {
+	switch code.Type() {
 	case errors.NotFound:
 		return http.StatusNotFound
+	case errors.BadRequest:
+		return http.StatusBadRequest
 	default:
 		return http.StatusInternalServerError
 	}

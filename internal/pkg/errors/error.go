@@ -9,13 +9,15 @@ import (
 type ErrorType string
 
 const (
-	NotFound      ErrorType = "NotFound"
-	InternalError ErrorType = "InternalError"
+	NotFound      ErrorType = "not_found"
+	BadRequest    ErrorType = "bad_request"
+	InternalError ErrorType = "internal_error"
 )
 
 type Error interface {
 	Type() ErrorType
 	Error() string
+	Causes() []Cause
 }
 
 type customError struct {
@@ -55,7 +57,10 @@ func (err customError) Error() string {
 	return strings.Join(causes, "; ")
 }
 
-// GetType returns the error type
 func (err customError) Type() ErrorType {
 	return err.errorType
+}
+
+func (err customError) Causes() []Cause {
+	return err.causes
 }

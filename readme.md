@@ -18,4 +18,4 @@ In Fx, there are four main concepts:
 * [Meduim Post](https://luannt2909.medium.com/apply-dependency-injection-with-uber-fx-golang-365d914189c1)
 
 ### Running the APOC
-To start up, you may run Torwart's local db. You can use the configuration of Torwart repository to create your Docker image and run it. 
+To start up, there is a file called docker-compose.yaml it will create a container mysql database.

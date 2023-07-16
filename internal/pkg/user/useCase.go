@@ -10,6 +10,8 @@ import (
 type UseCase interface {
 	CreateUser(request api.CreateUserRequest) (*user.User, error)
 	GetUserByID(id uint64) (*user.User, errors.Error)
+	updateByName(user api.CreateUserRequest) (*user.User, errors.Error)
+	GetUserByName(userName string) (*user.User, errors.Error)
 }
 type useCase struct {
 	userRepo user.Repository
@@ -34,14 +36,29 @@ func (uc *useCase) CreateUser(request api.CreateUserRequest) (*user.User, error)
 }
 
 func (uc *useCase) GetUserByID(id uint64) (*user.User, errors.Error) {
-	userDB, err := uc.userRepo.GetByID(id)
-	if err != nil {
-		customError := errors.NewError()
-		if err := mapstructure.Decode(err, &customError); err != nil {
-			return nil, errors.InternalError.NewErrorF(errors.NewErrorCausef(errors.DecodingJsonCode, "", err))
-		}
-		return nil, customError
+	if userDB, err := uc.userRepo.GetByID(id); err != nil {
+		return nil, err
+	} else {
+		return userDB, nil
 	}
-	return userDB, nil
+
+}
+func (uc *useCase) GetUserByName(userName string) (*user.User, errors.Error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (uc *useCase) updateByName(userRequest api.CreateUserRequest) (*user.User, errors.Error) {
+	userDB := &user.User{}
+
+	if err := mapstructure.Decode(&userRequest, userDB); err != nil {
+		return nil, errors.InternalError.NewErrorF(errors.NewErrorCausef(errors.DecodingJsonCode, "", err))
+	}
+
+	if userUpdated, err := uc.userRepo.UpdateByName(userDB); err != nil {
+		return nil, err
+	} else {
+		return userUpdated, nil
+	}
 
 }

@@ -13,3 +13,9 @@ type CreateUserRequest struct {
 type CreateUserResponse struct {
 	User user2.User
 }
+
+type updateUser struct {
+	Name        string `json:"name,omitempty"`
+	Description string `json:"description,omitempty"`
+	Age         int32  `json:"age,omitempty"`
+}
