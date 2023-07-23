@@ -11,11 +11,11 @@ In Fx, there are four main concepts:
 
 ![img.png](img.png)
 
-
+I think that one big benefit of fx are the hooks to startup and shutdown the serve. You only have to define the functions to run and stop the server and forget to work with channels and signals.
 
 #### Links of reference
 * [Youtube channel Panpito](https://www.youtube.com/watch?v=UnrAF8FwfXU&t=1751s&ab_channel=Panpito)
 * [Meduim Post](https://luannt2909.medium.com/apply-dependency-injection-with-uber-fx-golang-365d914189c1)
 
 ### Running the APOC
-To start up, there is a file called docker-compose.yaml it will create a container mysql database.
+To start up, there is a docker-compose.yaml it will create a mysql database.
