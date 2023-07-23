@@ -23,7 +23,7 @@ func NewDBRepository(db *gorm.DB) DBRepository {
 
 func (db *dbRepo) Create(user *User) internalErrors.Error {
 	if err := db.db.Create(user).Error; err != nil {
-		return castError(user.Name, err)
+		return customError(user.Name, err)
 	}
 	return nil
 }
@@ -31,7 +31,7 @@ func (db *dbRepo) Create(user *User) internalErrors.Error {
 func (db *dbRepo) GetByID(id uint64) (*User, internalErrors.Error) {
 	u := &User{}
 	if err := db.db.First(u, id).Error; err != nil {
-		return nil, castError(strconv.FormatUint(id, 10), err)
+		return nil, customError(strconv.FormatUint(id, 10), err)
 	}
 	return u, nil
 }
@@ -39,7 +39,7 @@ func (db *dbRepo) GetByID(id uint64) (*User, internalErrors.Error) {
 func (db *dbRepo) UpdateByName(userDB *User) (*User, internalErrors.Error) {
 
 	if err := db.db.Where("user.name = ?", userDB.Name).Updates(userDB).Error; err != nil {
-		return nil, castError(userDB.Name, err)
+		return nil, customError(userDB.Name, err)
 	}
 
 	return userDB, nil
@@ -48,14 +48,14 @@ func (db *dbRepo) UpdateByName(userDB *User) (*User, internalErrors.Error) {
 func (db *dbRepo) GetByName(userName string) (*User, internalErrors.Error) {
 	u := &User{}
 	if err := db.db.First(u, "user.name = ?", userName).Error; err != nil {
-		return nil, castError(userName, err)
+		return nil, customError(userName, err)
 	}
 	return u, nil
 }
-func castError(userName string, err error) internalErrors.Error {
+func customError(userName string, err error) internalErrors.Error {
 	switch err {
 	case gorm.ErrRecordNotFound:
-		return internalErrors.NotFound.NewErrorF(internalErrors.NewErrorCausef(internalErrors.UserNotFoundCode, "User with name userName: %v not found. ", userName, err))
+		return internalErrors.NotFound.NewErrorF(internalErrors.NewErrorCausef(internalErrors.UserNotFoundCode, "User with name userName: %v not found. %v", userName, err))
 	case gorm.ErrInvalidData:
 		return internalErrors.BadRequest.NewErrorF(internalErrors.NewErrorCausef(internalErrors.UserInvalidData, err.Error()))
 	case gorm.ErrMissingWhereClause:

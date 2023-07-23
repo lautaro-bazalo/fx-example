@@ -1,7 +1,7 @@
 package userfx
 
 import (
-	user3 "fxdemo/internal/pkg/model/user"
+	modelUser "fxdemo/internal/pkg/model/user"
 	"fxdemo/internal/pkg/user"
 	"go.uber.org/fx"
 	"gorm.io/gorm"
@@ -14,15 +14,15 @@ var Module = fx.Provide(
 	provideUserUseCase,
 )
 
-func provideUserDBRepository(db *gorm.DB) user3.DBRepository {
-	return user3.NewDBRepository(db)
+func provideUserDBRepository(db *gorm.DB) modelUser.DBRepository {
+	return modelUser.NewDBRepository(db)
 }
 
-func provideUserRepository(dbRepo user3.DBRepository) user3.Repository {
-	return user3.NewRepository(dbRepo)
+func provideUserRepository(dbRepo modelUser.DBRepository) modelUser.Repository {
+	return modelUser.NewRepository(dbRepo)
 }
 
-func provideUserUseCase(userRepo user3.Repository) user.UseCase {
+func provideUserUseCase(userRepo modelUser.Repository) user.UseCase {
 	return user.NewUseCase(userRepo)
 }
 

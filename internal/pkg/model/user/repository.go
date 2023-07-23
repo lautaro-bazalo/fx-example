@@ -23,19 +23,12 @@ func (r *repository) Create(user *User) errors.Error {
 }
 
 func (r *repository) GetByID(id uint64) (*User, errors.Error) {
-	user, err := r.dbRepo.GetByID(id)
-	if err != nil {
-		return nil, err
-	}
-	return user, nil
+	return r.dbRepo.GetByID(id)
 }
 
 func (r *repository) GetByName(userName string) (*User, errors.Error) {
-	user, err := r.dbRepo.GetByName(userName)
-	if err != nil {
-		return nil, err
-	}
-	return user, nil
+	return r.dbRepo.GetByName(userName)
+
 }
 func (r *repository) UpdateByName(user *User) (*User, errors.Error) {
 	return r.dbRepo.UpdateByName(user)

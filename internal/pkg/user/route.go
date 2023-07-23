@@ -24,7 +24,7 @@ func (r *router) Handler(gGroup gin.IRouter) {
 	g.POST("", r.createUser)
 	g.PATCH("", r.updataByName)
 	g.GET("/:id", r.getUserByID)
-	g.GET("/:name")
+	g.GET("/name/:name", r.getUserByName)
 
 }
 func (r *router) createUser(c *gin.Context) {
@@ -35,7 +35,7 @@ func (r *router) createUser(c *gin.Context) {
 		return
 	}
 	if user, err := r.useCase.CreateUser(req); err != nil {
-		_ = c.Error(err)
+		c.JSON(translateErrorCode(err), err)
 		return
 	} else {
 		c.JSON(http.StatusOK, ToAPI(*user))
@@ -51,7 +51,7 @@ func (r *router) getUserByID(c *gin.Context) {
 		return
 	}
 	if user, errHandler := r.useCase.GetUserByID(id); errHandler != nil {
-		c.JSON(500, toApiError(errHandler))
+		c.JSON(translateErrorCode(errHandler), toApiError(errHandler))
 	} else {
 		c.JSON(http.StatusOK, ToAPI(*user))
 	}
@@ -60,7 +60,7 @@ func (r *router) getUserByName(c *gin.Context) {
 	userName := c.Param("name")
 
 	if user, errHandler := r.useCase.GetUserByName(userName); errHandler != nil {
-		c.JSON(500, toApiError(errHandler))
+		c.JSON(translateErrorCode(errHandler), toApiError(errHandler))
 	} else {
 		c.JSON(http.StatusOK, ToAPI(*user))
 	}
