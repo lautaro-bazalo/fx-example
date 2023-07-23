@@ -1,8 +1,25 @@
+# About project
+
+Hi, I'm Computer Engineer and a few months ago I had to do an apoc of Dependency Injection in Golang.
+You probably are thinking now that is a risky move use DY in a language like golang but, I think that just is another "tool" using reflection in background.
+Looking out for some DY framework or something like that I found Uber Fx.
+
+# Technologies involved
+
+In this apoc I used the following technologies
+
+• Gorm orm
+
+• Gin-gonic Framework
+
+• Docker compose
+
+• Mysql database
+
+
 # FX-Example 
 
-APOC about framework of dependency injection of uber [FX](https://uber-go.github.io/fx/) 
-
-In Fx, there are four main concepts:
+In [FX](https://uber-go.github.io/fx/) there are four main concepts:
 
 * `fx.Provide`  Registers all constructors
 * `fx.Decorate` Registers all decorators 
@@ -12,10 +29,6 @@ In Fx, there are four main concepts:
 ![img.png](img.png)
 
 I think that one big benefit of fx are the hooks to startup and shutdown the serve. You only have to define the functions to run and stop the server and forget to work with channels and signals.
-
-#### Links of reference
-* [Youtube channel Panpito](https://www.youtube.com/watch?v=UnrAF8FwfXU&t=1751s&ab_channel=Panpito)
-* [Meduim Post](https://luannt2909.medium.com/apply-dependency-injection-with-uber-fx-golang-365d914189c1)
 
 ### Running the APOC
 To start up, there is a docker-compose.yaml it will create a mysql database.
