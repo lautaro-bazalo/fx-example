@@ -23,7 +23,7 @@ func (r *router) Handler(gGroup gin.IRouter) {
 	g := gGroup.Group("/users")
 	g.POST("", r.createUser)
 	g.PATCH("", r.updataByName)
-	g.GET("/:id", r.getUserByID)
+	g.GET("/id/:id", r.getUserByID)
 	g.GET("/name/:name", r.getUserByName)
 
 }
