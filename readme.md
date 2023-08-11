@@ -31,4 +31,4 @@ In [FX](https://uber-go.github.io/fx/) there are four main concepts:
 I think that one big benefit of fx are the hooks to startup and shutdown the server. You only have to define the functions to run and stop the server and forget about working with channels and signals.
 
 ### Running the APOC
-To start up, there is a docker-compose.yaml that will create a mysql database. Eventually you can run the project with the command `go run .`
+To start up, there is a docker-compose.yaml that will create a mysql database. Finally, you can run the project with the command `go run .`
